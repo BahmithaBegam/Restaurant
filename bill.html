@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Invoice Receipt | ASLAM BIRYANI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eef2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #222;
+        }
+
+        /* Thermal Bill Container */
+        .receipt-card {
+            background: #ffffff;
+            width: 360px;
+            padding: 24px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-top: 6px solid #8b0000;
+            position: relative;
+        }
+
+        /* Header / Logo Section */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .brand-logo-img {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #8b0000;
+            margin: 0 auto 8px;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.2);
+        }
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            color: #8b0000;
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .brand-subtitle {
+            font-size: 0.7rem;
+            color: #d4af37;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+        .address-box {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.4;
+            margin-top: 6px;
+        }
+
+        /* Meta Box Info */
+        .info-grid {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 14px 0;
+            font-size: 0.78rem;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+        .info-value {
+            color: #111;
+            font-weight: 600;
+        }
+
+        /* Divider Line */
+        .dotted-line {
+            border-bottom: 2px dashed #bbb;
+            margin: 12px 0;
+        }
+
+        /* Table Styling */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .items-table th {
+            text-align: left;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: #777;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+        .items-table th.right, .items-table td.right {
+            text-align: right;
+        }
+        .items-table th.center, .items-table td.center {
+            text-align: center;
+        }
+        .items-table td {
+            padding: 8px 0;
+            color: #333;
+            vertical-align: top;
+        }
+        .item-name-col {
+            font-weight: 600;
+            color: #111;
+        }
+
+        /* Summary Calculations */
+        .calc-box {
+            font-size: 0.82rem;
+        }
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .calc-row.grand-total {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #8b0000;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px solid #222;
+        }
+
+        /* Payment & QR Section */
+        .payment-status {
+            text-align: center;
+            margin: 15px 0 5px;
+            padding: 6px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .qr-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .qr-code {
+            width: 110px;
+            height: 110px;
+            border: 1px solid #ddd;
+            padding: 4px;
+            border-radius: 6px;
+            background: #fff;
+        }
+        .qr-text {
+            font-size: 0.72rem;
+            color: #333;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+        .upi-id {
+            font-size: 0.75rem;
+            color: #8b0000;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* Footer Message */
+        .footer-thankyou {
+            text-align: center;
+            font-size: 0.78rem;
+            color: #555;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        .fssai-text {
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Buttons Container */
+        .btn-group {
+            width: 360px;
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-print {
+            background: #8b0000;
+            color: #ffffff;
+        }
+        .btn-print:hover {
+            background: #6a0000;
+        }
+        .btn-demo {
+            background: #d4af37;
+            color: #ffffff;
+        }
+        .btn-demo:hover {
+            background: #b59328;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .receipt-card {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                padding: 0;
+            }
+            .btn-group {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="receipt-card">
+        <!-- Brand Header with Logo Image -->
+        <div class="brand-header">
+            <img src="logo.png" alt="Aslam Biryani Logo" class="brand-logo-img">
+            <h1 class="brand-title">ASLAM BIRYANI</h1>
+            <p class="brand-subtitle">Authentic Charcoal Dum Biryani</p>
+            <div class="address-box">
+                No.54/1, CNK Road, Triplicane, Chennai - 600 005<br>
+                <strong>Ph:</strong> 9941430271, 6379892932
+            </div>
+        </div>
+
+        <!-- Order Meta Info -->
+        <div class="info-grid">
+            <div class="info-row">
+                <span class="info-label">Invoice No:</span>
+                <span class="info-value" id="invNo">#AB-849201</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Date & Time:</span>
+                <span class="info-value" id="invDate"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Order Type / Table:</span>
+                <span class="info-value">Dine-In / Table 04</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Payment Mode:</span>
+                <span class="info-value">UPI / Online</span>
+            </div>
+        </div>
+
+        <div class="dotted-line"></div>
+
+        <!-- Items Table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Item</th>
+                    <th class="center" style="width: 20%;">Qty</th>
+                    <th class="right" style="width: 30%;">Amount</th>
+                </tr>
+            </thead>
+            <tbody id="bill-items">
+                <!-- Dynamic Items will be rendered here -->
+            </tbody>
+        </table>
+
+        <div class="dotted-line"></div>
+
+        <!-- Calculation Section -->
+        <div class="calc-box">
+            <div class="calc-row">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0.00</span>
+            </div>
+            <div class="calc-row">
+                <span>CGST (2.5%)</span>
+                <span id="cgst">₹0.00</span>
+            </div>
+            <div class="calc-row">
+                <span>SGST (2.5%)</span>
+                <span id="sgst">₹0.00</span>
+            </div>
+            <div class="calc-row grand-total">
+                <span>Grand Total</span>
+                <span id="grandTotal">₹0.00</span>
+            </div>
+        </div>
+
+        <!-- Paid Badge -->
+        <div class="payment-status">
+            ✓ Paid via UPI
+        </div>
+
+        <!-- UPI QR Code Section with aslam150605-1@okicici -->
+        <div class="qr-container">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=aslam150605-1@okicici&pn=AslamBiryani" alt="Aslam Biryani UPI QR" class="qr-code">
+            <p class="qr-text">Scan to pay via GPay / PhonePe / Paytm</p>
+            <div class="upi-id">aslam150605-1@okicici</div>
+        </div>
+
+        <div class="dotted-line"></div>
+
+        <!-- Footer Note -->
+        <div class="footer-thankyou">
+            Thank you for dining with us! ❤️<br>
+            Please visit again.
+        </div>
+        <p class="fssai-text">FSSAI Lic No: 22423588000192</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="btn-group">
+        <button class="btn btn-print" onclick="window.print()">🖨️ Print Receipt</button>
+        <button class="btn btn-demo" onclick="loadDemoData()">🔄 Load Demo Items</button>
+    </div>
+
+    <script>
+        // Set Random Invoice & Current Date
+        document.getElementById('invNo').innerText = '#AB-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('invDate').innerText = new Date().toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short' });
+
+        // Sample Demo Data if localStorage is empty
+        const sampleCart = [
+            { name: "Mutton Dum Biryani", qty: 2, price: 320 },
+            { name: "Chicken 65 (Bone-in)", qty: 1, price: 180 },
+            { name: "Special Charcoal Egg Biryani", qty: 1, price: 210 },
+            { name: "Cool Drink (300ml)", qty: 2, price: 40 }
+        ];
+
+        function renderBill(cartData) {
+            const container = document.getElementById('bill-items');
+            if (!cartData || cartData.length === 0) {
+                container.innerHTML = `<tr><td colspan="3" style="text-align:center; padding:15px; color:#888;">No items in cart. Click 'Load Demo Items' below.</td></tr>`;
+                document.getElementById('subtotal').innerText = '₹0.00';
+                document.getElementById('cgst').innerText = '₹0.00';
+                document.getElementById('sgst').innerText = '₹0.00';
+                document.getElementById('grandTotal').innerText = '₹0.00';
+                return;
+            }
+
+            let subtotal = 0;
+            container.innerHTML = cartData.map(item => {
+                const qty = item.qty || 1;
+                const total = item.price * qty;
+                subtotal += total;
+                return `
+                    <tr>
+                        <td class="item-name-col">${item.name}</td>
+                        <td class="center">${qty}</td>
+                        <td class="right">₹${total.toFixed(2)}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            let cgst = subtotal * 0.025; // 2.5% CGST
+            let sgst = subtotal * 0.025; // 2.5% SGST
+            let grandTotal = subtotal + cgst + sgst;
+
+            document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('cgst').innerText = `₹${cgst.toFixed(2)}`;
+            document.getElementById('sgst').innerText = `₹${sgst.toFixed(2)}`;
+            document.getElementById('grandTotal').innerText = `₹${grandTotal.toFixed(2)}`;
+        }
+
+        // Load Real Cart Data from LocalStorage or Fallback
+        const savedCart = JSON.parse(localStorage.getItem('aslamCart'));
+        if (savedCart && savedCart.length > 0) {
+            renderBill(savedCart);
+        } else {
+            renderBill(sampleCart);
+        }
+
+        // Demo Data Button Function
+        function loadDemoData() {
+            renderBill(sampleCart);
+        }
+    </script>
+</body>
+</html>
