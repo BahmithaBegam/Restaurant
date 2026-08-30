@@ -11,9 +11,29 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
         body { background: var(--light); color: var(--dark); padding-bottom: 50px; }
         
-        header { position:fixed; top:0; width:100%; background:rgba(18,18,18,0.95); padding:0.6rem 5%; display:flex; justify-content:space-between; align-items:center; z-index:100; }
-        
-        .logo-container { display: flex; align-items: center; text-decoration: none; gap: 10px; }
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            background: rgba(18, 18, 18, 0.98); 
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 4%;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 1000; 
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo-container { 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+            gap: 14px;
+            flex-shrink: 0;
+        }
         .brand-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
         .logo-fallback { 
             width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); 
@@ -22,7 +42,12 @@
         }
         .logo-text { font-family:'Cinzel', serif; font-size:1.5rem; color:var(--gold); font-weight:700; }
 
-        nav a { color:#fff; text-decoration:none; margin:0 12px; font-weight:500; }
+        nav { 
+            display: flex; 
+            gap: 24px;
+            align-items: center; 
+        }
+        nav a { color:#fff; text-decoration:none; font-weight:500; }
         nav a.active { color:var(--gold); }
         .nav-actions { display: flex; align-items: center; gap: 15px; }
         
@@ -30,7 +55,7 @@
         .cart-icon { color:var(--gold); cursor:pointer; font-size:1.3rem; position:relative; }
         .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        .container { margin-top:100px; padding:2rem 5%; }
+        .container { margin-top:120px; padding:2rem 5%; }
         
         .categories { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 20px 0 30px; }
         .cat-btn { padding: 8px 18px; border: 1px solid var(--primary); background: transparent; border-radius: 20px; cursor: pointer; font-weight: 500; transition: 0.3s; }
@@ -38,7 +63,7 @@
 
         .menu-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:25px; }
         .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.06); padding:15px; display:flex; flex-direction:column; justify-content: space-between; position: relative; }
-        .card img { width:100%; height:160px; object-fit:cover; border-radius:8px; }
+        .card img { width:100%; height:170px; object-fit:cover; border-radius:8px; }
         .card-body { margin-top: 10px; flex-grow: 1; }
         .card-title { font-size: 1.05rem; font-weight: 600; }
         .card-price { color: var(--primary); font-weight: 700; margin: 5px 0; }
@@ -62,110 +87,20 @@
         .remove-cart-item { background: none; border: none; color: #d9534f; cursor: pointer; font-size: 1rem; }
         .remove-cart-item:hover { color: #8b0000; }
 
-        /* Toast Notification Styling */
         #toast {
             visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center;
             border-radius: 20px; padding: 10px; position: fixed; z-index: 1001; left: 50%;
             bottom: 30px; transform: translateX(-50%); font-size: 0.9rem;
         }
-        #toast.show { visibility: visible; -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @-webkit-keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @-webkit-keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        
         @media (max-width: 768px) {
-    header {
-        padding: 0.5rem 2%;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    nav {
-        justify-content: center;
-        width: 100%;
-        order: 3;
-    }
-    .container {
-        margin-top: 130px;
-    }
-}
-header { 
-    position: fixed; 
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    background: rgba(18, 18, 18, 0.98); 
-    backdrop-filter: blur(10px);
-    padding: 1.2rem 4%; /* Romba adhigamaana padding */
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    z-index: 1000; 
-    box-sizing: border-box;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.logo-container { 
-    display: flex; 
-    align-items: center; 
-    text-decoration: none; 
-    gap: 14px; /* Space between logo and text */
-    flex-shrink: 0;
-}
-
-nav { 
-    display: flex; 
-    gap: 24px; /* Space between nav links */
-    align-items: center; 
-}
-
-.hero {
-    flex-grow: 1; 
-    margin-top: 120px; /* Header-kum hero-kum romba space */
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between;
-    padding: 4rem 8%; /* Hero section-la romba breathing space */
-    min-height: calc(100vh - 180px); 
-    gap: 50px; 
-    position: relative;
-}
-
-.hero-badges { 
-    display: flex; 
-    gap: 16px; 
-    flex-wrap: wrap; 
-    margin-bottom: 25px; /* Badge-kum heading-kum space */
-}
-
-.hero h1 { 
-    font-family: 'Cinzel', serif; 
-    font-size: 3.5rem; 
-    color: #fff; 
-    line-height: 1.3; 
-    margin-bottom: 25px; /* Heading-kum paragraph-kum space */
-    font-weight: 800; 
-    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
-
-.hero h1 span { 
-    color: var(--gold); 
-    display: block; 
-    margin-top: 8px; 
-}
-
-.hero p { 
-    font-size: 1.1rem; 
-    line-height: 1.8; 
-    color: #e0e0e0; 
-    margin-bottom: 35px; /* Paragraph-kum buttons-kum space */
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5); 
-}
-
-.hero-actions { 
-    display: flex; 
-    gap: 20px; /* Buttons kulla space */
-    flex-wrap: wrap; 
-}
+            header { padding: 0.5rem 2%; flex-wrap: wrap; gap: 8px; }
+            nav { justify-content: center; width: 100%; order: 3; }
+            .container { margin-top: 130px; }
+        }
     </style>
 </head>
 <body>
@@ -192,7 +127,6 @@ nav {
     </header>
 
     <div class="container">
-        
         <div class="admin-panel" id="adminPanel">
             <h2 id="formTitle">Add New Item (Create)</h2>
             <form id="itemForm" onsubmit="handleFormSubmit(event)" class="crud-form">
@@ -238,52 +172,64 @@ nav {
     <div id="toast">Item added to cart!</div>
 
     <script>
+        const STORAGE_KEY = 'aslam_menu_accurate_v4';
+
         const defaultMenu = [
-            { id: 1, name: "Hyderabadi Chicken Dum Biryani", category: "biryani", price: 340, img: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcQ1xHxGHPbyU4gSE6bxv4qUu5dbghRFBajvnOfBjCtaETpT0MLy4jOXx7yniDw9D8cOrB3bjTT1UJ573n4" },
-            { id: 2, name: "Special Mutton Moghulai Biryani", category: "biryani", price: 480, img: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTAENhiqPnC6NNS2t4yCSaanvN8OP-URPYTSCISt9Slqq_XaEQqCjmRUGAWgn0XI6P1CoR4R7R2xGbyoWY" },
-            { id: 3, name: "Kolkata Egg Biryani with Potato", category: "biryani", price: 260, img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=400" },
-            { id: 4, name: "Paneer Tikka Dum Biryani", category: "biryani", price: 290, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
-            { id: 5, name: "Lucknowi Chicken White Dum Biryani", category: "biryani", price: 360, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
-            { id: 6, name: "Prawn Saffron Biryani", category: "biryani", price: 520, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=400" },
-            { id: 7, name: "Chicken Tikka Boneless Biryani", category: "biryani", price: 380, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=400" },
-            { id: 8, name: "Special Family Bucket Biryani (chicken)", category: "biryani", price: 1250, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=400" },
-            { id: 9, name: "Veg Handi Dum Biryani", category: "biryani", price: 240, img: "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?q=80&w=400" },
-            { id: 10, name: "Fish Tikka Biryani", category: "biryani", price: 440, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=400" },
-            { id: 11, name: "Crispy Chicken 65", category: "starters", price: 250, img: "https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTAE2fsuc4b4tTRSm7yPXVCPHgoMXoizjrK2Y_kaHkUwPN0VMPFej-g3Z5o0jzNF_X8mtB-BIkD6TfDSls" },
-            { id: 12, name: "Mutton Galouti Kebab", category: "starters", price: 390, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400" },
-            { id: 13, name: "Tandoori Chicken (Half)", category: "starters", price: 310, img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=400" },
-            { id: 15, name: "Paneer Malai Tikka", category: "starters", price: 280, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=400" },
-            { id: 16, name: "Chicken Seekh Kebab", category: "starters", price: 320, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=80&w=400" },
-            { id: 19, name: "Dragon Chicken", category: "starters", price: 290, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=400" },
-            { id: 21, name: "Mutton Boti Fry", category: "starters", price: 420, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400" },
-            { id: 62, name: "Crispy Gobi 65", category: "starters", price: 220, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=80&w=400" },
-            { id: 66, name: "Special Chicken Soup", category: "starters", price: 160, img: "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?q=80&w=400" },
-            { id: 67, name: "Fresh Veg Soup", category: "starters", price: 130, img: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=400" },
-            { id: 23, name: "Butter Chicken Boneless", category: "curries", price: 360, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400" },
-            { id: 24, name: "Mutton Rogan Josh", category: "curries", price: 440, img: "https://images.unsplash.com/photo-1545247181-516773cae754?q=80&w=400" },
-            { id: 26, name: "Kadai Paneer", category: "curries", price: 280, img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=400" },
-            { id: 27, name: "Dal Makhani", category: "curries", price: 240, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
-            { id: 28, name: "Mutton Keema Matar", category: "curries", price: 410, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?q=80&w=400" },
-            { id: 29, name: "Chicken Chettinad Curry", category: "curries", price: 330, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=400" },
-            { id: 30, name: "Paneer Butter Masala", category: "curries", price: 270, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
-            { id: 31, name: "Egg Curry Masala", category: "curries", price: 210, img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=400" },
-            { id: 32, name: "Prawn Malabar Curry", category: "curries", price: 470, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=400" },
-            { id: 33, name: "Chettinad Fish Curry", category: "curries", price: 390, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=400" },
-            { id: 34, name: "Mutton Chukka Masala", category: "curries", price: 460, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400" },
-            { id: 43, name: "Elaneer (Tender Coconut) Payasam", category: "desserts", price: 160, img: "https://www.sharmispassions.com/wp-content/uploads/2018/09/ElaneerPayasam3.jpg" },
-            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=400" },
-            { id: 46, name: "Ada Pradhaman", category: "desserts", price: 150, img: "https://www.keralatourism.org/_next/image/?url=http%3A%2F%2F127.0.0.1%2Fktadmin%2Fimg%2Fpages%2Fmobile%2Fada-pradhaman-1721976964_f76238a1f8b35ff9e312.webp&w=3840&q=75" },
-            { id: 47, name: "Signature Kesari", category: "desserts", price: 110, img: "https://www.theculinarypeace.com/wp-content/uploads/2020/05/Badam-Halwa_4.jpg" },
-            { id: 48, name: "Lemon Juice", category: "desserts", price: 50, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=400" },
-            { id: 49, name: "Madurai Jigarthanda", category: "desserts", price: 120, img: "https://upload.wikimedia.org/wikipedia/commons/4/46/Jigarthanda.JPG" },
-            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=400" },
-            { id: 51, name: "Carrot Halwa (Gajar Halwa)", category: "desserts", price: 130, img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/07/carrot-halwa-gajar-halwa.jpg" },
-            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://www.theculinarypeace.com/wp-content/uploads/2020/05/Badam-Halwa_4.jpg" },
-            { id: 55, name: "Sakkarai Pongal", category: "desserts", price: 130, img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/01/sweet-pongal-chakkara-pongal-500x500.jpg" },
-            { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://www.sharmispassions.com/wp-content/uploads/2016/10/29923858964_826ea065d7_o.jpg" }
+            // BIRYANI
+            { id: 1, name: "Hyderabadi Chicken Dum Biryani", category: "biryani", price: 340, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Special Mutton Moghulai Biryani", category: "biryani", price: 480, img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "Kolkata Egg Biryani with Potato", category: "biryani", price: 260, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "Paneer Tikka Dum Biryani", category: "biryani", price: 290, img: "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "Lucknowi Chicken White Dum Biryani", category: "biryani", price: 360, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "Prawn Saffron Biryani", category: "biryani", price: 520, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=500&q=80" },
+            { id: 7, name: "Chicken Tikka Boneless Biryani", category: "biryani", price: 380, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=500&q=80" },
+            { id: 8, name: "Special Family Bucket Biryani (chicken)", category: "biryani", price: 1250, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" },
+            { id: 9, name: "Veg Handi Dum Biryani", category: "biryani", price: 240, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=500&q=80" },
+            { id: 10, name: "Fish Tikka Biryani", category: "biryani", price: 440, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=80" },
+
+            // STARTERS & SOUPS
+            { id: 11, name: "Crispy Chicken 65", category: "starters", price: 250, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=500&q=80" },
+            { id: 12, name: "Mutton Galouti Kebab", category: "starters", price: 390, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=500&q=80" },
+            { id: 13, name: "Tandoori Chicken (Half)", category: "starters", price: 310, img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500&q=80" },
+            { id: 15, name: "Paneer Malai Tikka", category: "starters", price: 280, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=500&q=80" },
+            { id: 16, name: "Chicken Seekh Kebab", category: "starters", price: 320, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80" },
+            { id: 19, name: "Dragon Chicken", category: "starters", price: 290, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80" },
+            { id: 21, name: "Mutton Boti Fry", category: "starters", price: 420, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" },
+            { id: 62, name: "Crispy Gobi 65", category: "starters", price: 220, img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=500&q=80" },
+            { id: 66, name: "Special Chicken Soup", category: "starters", price: 160, img: "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?auto=format&fit=crop&w=500&q=80" },
+            { id: 67, name: "Fresh Veg Soup", category: "starters", price: 130, img: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=80" },
+
+            // CURRIES
+            { id: 23, name: "Butter Chicken Boneless", category: "curries", price: 360, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=500&q=80" },
+            { id: 24, name: "Mutton Rogan Josh", category: "curries", price: 440, img: "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=500&q=80" },
+            { id: 26, name: "Kadai Paneer", category: "curries", price: 280, img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=500&q=80" },
+            { id: 27, name: "Dal Makhani", category: "curries", price: 240, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=500&q=80" },
+            { id: 28, name: "Mutton Keema Matar", category: "curries", price: 410, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" },
+            { id: 29, name: "Chicken Chettinad Curry", category: "curries", price: 330, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=500&q=80" },
+            { id: 30, name: "Paneer Butter Masala", category: "curries", price: 270, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=500&q=80" },
+            { id: 31, name: "Egg Curry Masala", category: "curries", price: 210, img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=500&q=80" },
+            { id: 32, name: "Prawn Malabar Curry", category: "curries", price: 470, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=500&q=80" },
+            { id: 33, name: "Chettinad Fish Curry", category: "curries", price: 390, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=80" },
+            { id: 34, name: "Mutton Chukka Masala", category: "curries", price: 460, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=500&q=80" },
+
+            // DESSERTS & COOL DRINKS
+            { id: 43, name: "Elaneer (Tender Coconut) Payasam", category: "desserts", price: 160, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=500&q=80" },
+            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=500&q=80" },
+            { id: 46, name: "Ada Pradhaman", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=500&q=80" },
+            { id: 47, name: "Signature Kesari", category: "desserts", price: 110, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80" },
+            { id: 48, name: "Lemon Juice", category: "desserts", price: 50, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80" },
+            { id: 49, name: "Madurai Jigarthanda", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=80" },
+            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=500&q=80" },
+            { id: 51, name: "Carrot Halwa (Gajar Halwa)", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=500&q=80" },
+            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80" },
+            { id: 55, name: "Sakkarai Pongal", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=500&q=80" },
+            { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=500&q=80" }
         ];
 
-        let menuItems = JSON.parse(localStorage.getItem('aslamMenuData')) || defaultMenu;
+        // Ensure fresh data overrides old cache completely
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultMenu));
+
+        let menuItems = JSON.parse(localStorage.getItem(STORAGE_KEY));
         let cart = [];
         let adminMode = false;
 
@@ -293,7 +239,7 @@ nav {
                 <div class="card">
                     <div>
                         <span class="card-cat">${item.category}</span>
-                        <img src="${item.img || 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=300'}" alt="${item.name}">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy">
                         <div class="card-body">
                             <div class="card-title">${item.name}</div>
                             <div class="card-price">₹${item.price}</div>
@@ -362,7 +308,7 @@ nav {
         }
 
         function saveAndRefresh() {
-            localStorage.setItem('aslamMenuData', JSON.stringify(menuItems));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(menuItems));
             renderMenu();
         }
 
