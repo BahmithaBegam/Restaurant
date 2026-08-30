@@ -238,22 +238,35 @@ nav {
     <div id="toast">Item added to cart!</div>
 
     <script>
+        
+        localStorage.clear();
         const defaultMenu = [
-            { 
+           // 1. Hyderabadi Chicken Dum Biryani
+{ 
     id: 1, 
     name: "Hyderabadi Chicken Dum Biryani", 
     category: "biryani", 
     price: 340, 
     img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80" 
 },
+
+// 2. Special Mutton Moghulai Biryani
 { 
     id: 2, 
     name: "Special Mutton Moghulai Biryani", 
     category: "biryani", 
     price: 480, 
-    img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=500&q=80" 
+    img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" 
 },
-            { id: 3, name: "Kolkata Egg Biryani with Potato", category: "biryani", price: 260, img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=400" },
+
+// 3. Kolkata Egg Biryani with Potato
+{ 
+    id: 3, 
+    name: "Kolkata Egg Biryani with Potato", 
+    category: "biryani", 
+    price: 260, 
+    img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=500&q=80" 
+},
             { id: 4, name: "Paneer Tikka Dum Biryani", category: "biryani", price: 290, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
             { id: 5, name: "Lucknowi Chicken White Dum Biryani", category: "biryani", price: 360, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
             { id: 6, name: "Prawn Saffron Biryani", category: "biryani", price: 520, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=400" },
@@ -261,7 +274,16 @@ nav {
             { id: 8, name: "Special Family Bucket Biryani (chicken)", category: "biryani", price: 1250, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=400" },
             { id: 9, name: "Veg Handi Dum Biryani", category: "biryani", price: 240, img: "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?q=80&w=400" },
             { id: 10, name: "Fish Tikka Biryani", category: "biryani", price: 440, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=400" },
-            { id: 11, name: "Crispy Chicken 65", category: "starters", price: 250, img: "https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTAE2fsuc4b4tTRSm7yPXVCPHgoMXoizjrK2Y_kaHkUwPN0VMPFej-g3Z5o0jzNF_X8mtB-BIkD6TfDSls" },
+           // 1. Hyderabadi Chicken Dum Biryani
+
+// 3. Crispy Chicken 65
+{ 
+    id: 11, 
+    name: "Crispy Chicken 65", 
+    category: "starters", 
+    price: 250, 
+    img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=500" 
+},
             { id: 12, name: "Mutton Galouti Kebab", category: "starters", price: 390, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400" },
             { id: 13, name: "Tandoori Chicken (Half)", category: "starters", price: 310, img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=400" },
             { id: 15, name: "Paneer Malai Tikka", category: "starters", price: 280, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=400" },
@@ -295,32 +317,32 @@ nav {
             { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://www.sharmispassions.com/wp-content/uploads/2016/10/29923858964_826ea065d7_o.jpg" }
         ];
 
-        let menuItems = JSON.parse(localStorage.getItem('aslamMenuData')) || defaultMenu;
+        let menuItems = defaultMenu;
         let cart = [];
         let adminMode = false;
 
         function renderMenu(itemsToDisplay = menuItems) {
-            const grid = document.getElementById('menuGrid');
-            grid.innerHTML = itemsToDisplay.map(item => `
-                <div class="card">
-                    <div>
-                        <span class="card-cat">${item.category}</span>
-                        <img src="${item.img || 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=300'}" alt="${item.name}">
-                        <div class="card-body">
-                            <div class="card-title">${item.name}</div>
-                            <div class="card-price">₹${item.price}</div>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn" onclick="addToCart(${item.id})">Add to Order</button>
-                        ${adminMode ? `
-                            <button class="btn btn-warning" onclick="editItem(${item.id})">Edit</button>
-                            <button class="btn btn-danger" onclick="deleteItem(${item.id})">Delete</button>
-                        ` : ''}
-                    </div>
+    const grid = document.getElementById('menuGrid');
+    grid.innerHTML = itemsToDisplay.map(item => `
+        <div class="card">
+            <div>
+                <span class="card-cat">${item.category}</span>
+                <img src="${item.img}" alt="${item.name}">
+                <div class="card-body">
+                    <div class="card-title">${item.name}</div>
+                    <div class="card-price">₹${item.price}</div>
                 </div>
-            `).join('');
-        }
+            </div>
+            <div>
+                <button class="btn" onclick="addToCart(${item.id})">Add to Order</button>
+                ${adminMode ? `
+                    <button class="btn btn-warning" onclick="editItem(${item.id})">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteItem(${item.id})">Delete</button>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
 
         function filterCategory(cat) {
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
