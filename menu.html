@@ -127,7 +127,6 @@
     </header>
 
     <div class="container">
-        
         <div class="admin-panel" id="adminPanel">
             <h2 id="formTitle">Add New Item (Create)</h2>
             <form id="itemForm" onsubmit="handleFormSubmit(event)" class="crud-form">
@@ -173,55 +172,61 @@
     <div id="toast">Item added to cart!</div>
 
     <script>
+        const STORAGE_KEY = 'aslamMenu_force_v3';
+
         const defaultMenu = [
-            { id: 1, name: "Hyderabadi Chicken Dum Biryani", category: "biryani", price: 340, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=400" },
-            { id: 2, name: "Special Mutton Moghulai Biryani", category: "biryani", price: 480, img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=400" },
-            { id: 3, name: "Kolkata Egg Biryani with Potato", category: "biryani", price: 260, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=400" },
-            { id: 4, name: "Paneer Tikka Dum Biryani", category: "biryani", price: 290, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
-            { id: 5, name: "Lucknowi Chicken White Dum Biryani", category: "biryani", price: 360, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
-            { id: 6, name: "Prawn Saffron Biryani", category: "biryani", price: 520, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=400" },
-            { id: 7, name: "Chicken Tikka Boneless Biryani", category: "biryani", price: 380, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=400" },
-            { id: 8, name: "Special Family Bucket Biryani (chicken)", category: "biryani", price: 1250, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400" },
-            { id: 9, name: "Veg Handi Dum Biryani", category: "biryani", price: 240, img: "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?q=80&w=400" },
-            { id: 10, name: "Fish Tikka Biryani", category: "biryani", price: 440, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=400" },
-            { id: 11, name: "Crispy Chicken 65", category: "starters", price: 250, img: "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=400" },
-            { id: 12, name: "Mutton Galouti Kebab", category: "starters", price: 390, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400" },
-            { id: 13, name: "Tandoori Chicken (Half)", category: "starters", price: 310, img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=400" },
-            { id: 15, name: "Paneer Malai Tikka", category: "starters", price: 280, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=400" },
-            { id: 16, name: "Chicken Seekh Kebab", category: "starters", price: 320, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=80&w=400" },
-            { id: 19, name: "Dragon Chicken", category: "starters", price: 290, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=400" },
-            { id: 21, name: "Mutton Boti Fry", category: "starters", price: 420, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400" },
-            { id: 62, name: "Crispy Gobi 65", category: "starters", price: 220, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?q=80&w=400" },
-            { id: 66, name: "Special Chicken Soup", category: "starters", price: 160, img: "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?q=80&w=400" },
-            { id: 67, name: "Fresh Veg Soup", category: "starters", price: 130, img: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=400" },
-            { id: 23, name: "Butter Chicken Boneless", category: "curries", price: 360, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=400" },
-            { id: 24, name: "Mutton Rogan Josh", category: "curries", price: 440, img: "https://images.unsplash.com/photo-1545247181-516773cae754?q=80&w=400" },
-            { id: 26, name: "Kadai Paneer", category: "curries", price: 280, img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=400" },
-            { id: 27, name: "Dal Makhani", category: "curries", price: 240, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
-            { id: 28, name: "Mutton Keema Matar", category: "curries", price: 410, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?q=80&w=400" },
-            { id: 29, name: "Chicken Chettinad Curry", category: "curries", price: 330, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=400" },
-            { id: 30, name: "Paneer Butter Masala", category: "curries", price: 270, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
-            { id: 31, name: "Egg Curry Masala", category: "curries", price: 210, img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=400" },
-            { id: 32, name: "Prawn Malabar Curry", category: "curries", price: 470, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=400" },
-            { id: 33, name: "Chettinad Fish Curry", category: "curries", price: 390, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=400" },
-            { id: 34, name: "Mutton Chukka Masala", category: "curries", price: 460, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400" },
-            { id: 43, name: "Elaneer (Tender Coconut) Payasam", category: "desserts", price: 160, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=400" },
-            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=400" },
-            { id: 46, name: "Ada Pradhaman", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=400" },
-            { id: 47, name: "Signature Kesari", category: "desserts", price: 110, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=400" },
-            { id: 48, name: "Lemon Juice", category: "desserts", price: 50, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=400" },
-            { id: 49, name: "Madurai Jigarthanda", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=400" },
-            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=400" },
-            { id: 51, name: "Carrot Halwa (Gajar Halwa)", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400" },
-            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=400" },
-            { id: 55, name: "Sakkarai Pongal", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=400" },
-            { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=400" }
+            { id: 1, name: "Hyderabadi Chicken Dum Biryani", category: "biryani", price: 340, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, name: "Special Mutton Moghulai Biryani", category: "biryani", price: 480, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, name: "Kolkata Egg Biryani with Potato", category: "biryani", price: 260, img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80" },
+            { id: 4, name: "Paneer Tikka Dum Biryani", category: "biryani", price: 290, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=400&q=80" },
+            { id: 5, name: "Lucknowi Chicken White Dum Biryani", category: "biryani", price: 360, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80" },
+            { id: 6, name: "Prawn Saffron Biryani", category: "biryani", price: 520, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=400&q=80" },
+            { id: 7, name: "Chicken Tikka Boneless Biryani", category: "biryani", price: 380, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" },
+            { id: 8, name: "Special Family Bucket Biryani (chicken)", category: "biryani", price: 1250, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" },
+            { id: 9, name: "Veg Handi Dum Biryani", category: "biryani", price: 240, img: "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?auto=format&fit=crop&w=400&q=80" },
+            { id: 10, name: "Fish Tikka Biryani", category: "biryani", price: 440, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80" },
+            { id: 11, name: "Crispy Chicken 65", category: "starters", price: 250, img: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=400&q=80" },
+            { id: 12, name: "Mutton Galouti Kebab", category: "starters", price: 390, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80" },
+            { id: 13, name: "Tandoori Chicken (Half)", category: "starters", price: 310, img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=400&q=80" },
+            { id: 15, name: "Paneer Malai Tikka", category: "starters", price: 280, img: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=400&q=80" },
+            { id: 16, name: "Chicken Seekh Kebab", category: "starters", price: 320, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80" },
+            { id: 19, name: "Dragon Chicken", category: "starters", price: 290, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80" },
+            { id: 21, name: "Mutton Boti Fry", category: "starters", price: 420, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" },
+            { id: 62, name: "Crispy Gobi 65", category: "starters", price: 220, img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80" },
+            { id: 66, name: "Special Chicken Soup", category: "starters", price: 160, img: "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?auto=format&fit=crop&w=400&q=80" },
+            { id: 67, name: "Fresh Veg Soup", category: "starters", price: 130, img: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=400&q=80" },
+            { id: 23, name: "Butter Chicken Boneless", category: "curries", price: 360, img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80" },
+            { id: 24, name: "Mutton Rogan Josh", category: "curries", price: 440, img: "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=400&q=80" },
+            { id: 26, name: "Kadai Paneer", category: "curries", price: 280, img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=400&q=80" },
+            { id: 27, name: "Dal Makhani", category: "curries", price: 240, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80" },
+            { id: 28, name: "Mutton Keema Matar", category: "curries", price: 410, img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=400&q=80" },
+            { id: 29, name: "Chicken Chettinad Curry", category: "curries", price: 330, img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" },
+            { id: 30, name: "Paneer Butter Masala", category: "curries", price: 270, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=400&q=80" },
+            { id: 31, name: "Egg Curry Masala", category: "curries", price: 210, img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=400&q=80" },
+            { id: 32, name: "Prawn Malabar Curry", category: "curries", price: 470, img: "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=400&q=80" },
+            { id: 33, name: "Chettinad Fish Curry", category: "curries", price: 390, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80" },
+            { id: 34, name: "Mutton Chukka Masala", category: "curries", price: 460, img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" },
+            { id: 43, name: "Elaneer (Tender Coconut) Payasam", category: "desserts", price: 160, img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80" },
+            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80" },
+            { id: 46, name: "Ada Pradhaman", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=400&q=80" },
+            { id: 47, name: "Signature Kesari", category: "desserts", price: 110, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=400&q=80" },
+            { id: 48, name: "Lemon Juice", category: "desserts", price: 50, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" },
+            { id: 49, name: "Madurai Jigarthanda", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" },
+            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=400&q=80" },
+            { id: 51, name: "Carrot Halwa (Gajar Halwa)", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=400&q=80" },
+            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=400&q=80" },
+            { id: 55, name: "Sakkarai Pongal", category: "desserts", price: 130, img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80" },
+            { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80" }
         ];
 
-        // Replace older/broken cached menu in localStorage with the fresh menu
-        localStorage.setItem('aslamMenuData', JSON.stringify(defaultMenu));
+        // Clean any old broken storage keys
+        localStorage.removeItem('aslamMenuData');
+        localStorage.removeItem('aslamMenuData_v2');
 
-        let menuItems = defaultMenu;
+        // Always read from STORAGE_KEY or initialize default
+        let menuItems = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultMenu;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(menuItems));
+
         let cart = [];
         let adminMode = false;
 
@@ -300,7 +305,7 @@
         }
 
         function saveAndRefresh() {
-            localStorage.setItem('aslamMenuData', JSON.stringify(menuItems));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(menuItems));
             renderMenu();
         }
 
