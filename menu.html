@@ -172,7 +172,7 @@
     <div id="toast">Item added to cart!</div>
 
     <script>
-        const STORAGE_KEY = 'aslam_menu_verified_final_v6';
+        const STORAGE_KEY = 'aslam_menu_dessert_fixed_v7';
 
         const defaultMenu = [
             // ==================== BIRYANI ====================
@@ -212,21 +212,28 @@
             { id: 33, name: "Chettinad Fish Curry", category: "curries", price: 390, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/South_Indian_Fish_Curry.jpg/640px-South_Indian_Fish_Curry.jpg" },
             { id: 34, name: "Mutton Chukka Masala", category: "curries", price: 460, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Mutton_Sukka_-_South_Indian_Dish.jpg/640px-Mutton_Sukka_-_South_Indian_Dish.jpg" },
 
-            // ==================== DESSERTS & COOL DRINKS ====================
+            // ==================== DESSERTS & COOL DRINKS (All Accurate) ====================
             { id: 43, name: "Elaneer (Tender Coconut) Payasam", category: "desserts", price: 160, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Payasam.jpg/640px-Payasam.jpg" },
-            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=500&q=80" },
+            { id: 44, name: "Cool Drinks", category: "desserts", price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=500&q=80" },
             { id: 46, name: "Ada Pradhaman", category: "desserts", price: 150, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Ada_pradhaman.JPG/640px-Ada_pradhaman.JPG" },
             { id: 47, name: "Signature Kesari", category: "desserts", price: 110, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rava_Kesari.JPG/640px-Rava_Kesari.JPG" },
             { id: 48, name: "Lemon Juice", category: "desserts", price: 50, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80" },
             { id: 49, name: "Madurai Jigarthanda", category: "desserts", price: 120, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Jigarthanda.JPG/640px-Jigarthanda.JPG" },
-            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Haupia_%285816401061%29.jpg/640px-Haupia_%285816401061%29.jpg" },
+            { id: 50, name: "Chef's Special Coconut Pudding", category: "desserts", price: 150, img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80" },
             { id: 51, name: "Carrot Halwa (Gajar Halwa)", category: "desserts", price: 130, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Gajar_ka_halwa_with_cashews.jpg/640px-Gajar_ka_halwa_with_cashews.jpg" },
-            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Halwa_Puri.jpg/640px-Halwa_Puri.jpg" },
+            { id: 53, name: "Badam Halwa Supreme", category: "desserts", price: 180, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Badam_Halwa.jpg/640px-Badam_Halwa.jpg" },
             { id: 55, name: "Sakkarai Pongal", category: "desserts", price: 130, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sweet_Pongal.jpg/640px-Sweet_Pongal.jpg" },
             { id: 56, name: "Adhirasam with Ice Cream (Fusion Dessert)", category: "desserts", price: 170, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Adhirasam_-_South_Indian_Sweet.jpg/640px-Adhirasam_-_South_Indian_Sweet.jpg" }
         ];
 
-        // Ensure fresh dataset overrides all previous localStorage caches
+        // Wipe older cache versions to ensure browser instantly uses these new URLs
+        localStorage.removeItem('aslamMenuData');
+        localStorage.removeItem('aslamMenuData_v2');
+        localStorage.removeItem('aslamMenu_force_v3');
+        localStorage.removeItem('aslam_menu_accurate_v4');
+        localStorage.removeItem('aslam_menu_accurate_desserts_v5');
+        localStorage.removeItem('aslam_menu_verified_final_v6');
+
         localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultMenu));
 
         let menuItems = JSON.parse(localStorage.getItem(STORAGE_KEY));
